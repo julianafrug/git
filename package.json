@@ -1,0 +1,14 @@
+{
+  "name": "meu-primeiro-projeto-claude",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/claude_client.js",
+  "scripts": {
+    "start": "node src/demo.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "node-fetch": "^3.3.2"
+  }
+}
