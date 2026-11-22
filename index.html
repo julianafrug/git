@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Meu Mundo</title>
+  <meta name="description" content="Um mundo 3D futurista. Entre pelas portas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <!-- Tela de entrada -->
+  <div id="intro">
+    <div class="intro-inner">
+      <p class="tag">// conexão estabelecida</p>
+      <h1 id="intro-title">MEU MUNDO</h1>
+      <p id="intro-sub" class="sub">bem-vindo(a) ao meu universo</p>
+      <div class="bar"><span id="progress"></span></div>
+      <button id="enter" disabled>CARREGANDO…</button>
+      <p class="hint-small">Melhor com fone de ouvido 🎧</p>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <header id="hud-top">
+    <div class="brand"><span class="dot"></span><span id="hud-title">MEU MUNDO</span></div>
+    <div class="where"><span>LOCAL</span> <b id="where">CORREDOR</b></div>
+    <div class="hud-buttons">
+      <button id="btn-sound" title="Som">SOM: ON</button>
+      <button id="btn-back" class="hidden" title="Voltar ao corredor (Esc)">⟵ VOLTAR</button>
+    </div>
+  </header>
+
+  <div id="tooltip"></div>
+
+  <footer id="hint">
+    <span class="desk">Arraste para olhar · <b>WASD</b> / setas para andar · clique na <b>porta</b> para entrar</span>
+    <span class="mob">Arraste para olhar · toque no chão para andar · toque na <b>porta</b></span>
+  </footer>
+
+  <!-- Painel de conteúdo -->
+  <aside id="panel" class="hidden" aria-live="polite">
+    <button id="panel-close" aria-label="Fechar">✕</button>
+    <p id="panel-kicker" class="kicker"></p>
+    <h2 id="panel-title"></h2>
+    <div id="panel-body"></div>
+  </aside>
+
+  <div id="flash"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
