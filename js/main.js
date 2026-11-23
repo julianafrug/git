@@ -509,10 +509,6 @@ function buildCorridor() {
   };
 
   w.spawn = { pos: new THREE.Vector3(0, EYE, zStart - 2), yaw: 0 };
-  w.intro = (t) => {
-    camera.position.set(Math.sin(t * 0.25) * 0.5, 1.75 + Math.sin(t * 0.4) * 0.05, zStart - 2 - Math.sin(t * 0.12) * 1.5);
-    camera.lookAt(0, 1.7, zEnd);
-  };
   loadModels(w, cfg.models);
   w.addUpdater((dt) => w.mixers.forEach((m) => m.update(dt)));
   return w;
@@ -1155,9 +1151,6 @@ function frame() {
   if (started) {
     updatePlayer(dt);
     updateHover();
-  } else {
-    // câmera passeando atrás da tela de intro
-    if (current.intro) current.intro(t);
   }
 
   const hd = started ? hoveredDoor() : null;
@@ -1180,38 +1173,31 @@ addEventListener('resize', () => {
 // Início
 // ------------------------------------------------------------
 async function boot() {
-  $('intro-title').textContent = CONFIG.title;
-  $('intro-sub').textContent = CONFIG.subtitle;
   $('hud-title').textContent = CONFIG.title;
   document.title = CONFIG.title.charAt(0) + CONFIG.title.slice(1).toLowerCase();
-  const prog = $('progress');
-  prog.style.width = '25%';
   try {
     await Promise.race([
-      Promise.all([document.fonts.load('900 80px Orbitron'), document.fonts.load('700 80px Orbitron'), document.fonts.load('500 30px "Space Grotesk"')]),
+      Promise.all([document.fonts.load('700 80px Orbitron'), document.fonts.load('500 30px "Space Grotesk"')]),
       new Promise((r) => setTimeout(r, 2500)),
     ]);
   } catch (_) { /* segue sem a fonte */ }
-  prog.style.width = '60%';
   hub = buildCorridor();
   setWorld(hub);
-  // pré-compila shaders
-  renderer.compile(hub.scene, camera);
-  prog.style.width = '100%';
+  renderer.compile(hub.scene, camera); // pré-compila shaders
+  started = true;
+  camera.fov = 90;
   requestAnimationFrame(frame);
+  requestAnimationFrame(() => $('intro').classList.add('gone'));
+  setTimeout(() => ($('hint').style.opacity = '0'), 14000);
 
-  const btn = $('enter');
-  btn.disabled = false;
-  btn.textContent = 'ENTRAR NO MUNDO';
-  btn.addEventListener('click', () => {
+  // o navegador só deixa tocar som depois do primeiro clique/tecla
+  const startSound = () => {
     sfx.init();
-    sfx.whoosh();
-    $('intro').classList.add('gone');
-    started = true;
-    setWorld(hub);
-    camera.fov = 100;
-    setTimeout(() => ($('hint').style.opacity = '0.0'), 14000);
-  });
+    removeEventListener('pointerdown', startSound);
+    removeEventListener('keydown', startSound);
+  };
+  addEventListener('pointerdown', startSound);
+  addEventListener('keydown', startSound);
 }
 
 // Atalhos úteis no console do navegador (ex.: __mundo.goToRoom(0))

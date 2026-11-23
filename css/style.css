@@ -41,36 +41,13 @@ button {
 button:hover { background: rgba(255, 159, 208, 0.18); box-shadow: 0 0 16px rgba(255, 159, 208, 0.4); border-color: var(--cyan); }
 .hidden { display: none !important; }
 
-/* ---------- Intro ---------- */
+/* ---------- Escurecido inicial ---------- */
 #intro {
-  position: fixed; inset: 0; z-index: 50;
-  display: grid; place-items: center;
-  background:
-    radial-gradient(ellipse at 50% 60%, rgba(255, 59, 107, 0.25), transparent 60%),
-    radial-gradient(ellipse at 50% 120%, rgba(255, 40, 80, 0.25), transparent 60%),
-    var(--bg);
-  transition: opacity 1s ease, visibility 1s;
-  padding: 16px;
+  position: fixed; inset: 0; z-index: 50; pointer-events: none;
+  background: var(--bg);
+  transition: opacity 1.6s ease, visibility 1.6s;
 }
 #intro.gone { opacity: 0; visibility: hidden; }
-.intro-inner { text-align: center; max-width: 560px; width: 100%; }
-.tag { font-family: "Orbitron"; font-size: 11px; color: var(--cyan); letter-spacing: 0.3em; opacity: 0.8; }
-#intro h1 {
-  font-family: "Orbitron"; font-weight: 900;
-  font-size: clamp(38px, 10vw, 84px);
-  letter-spacing: 0.08em; margin: 14px 0 8px;
-  background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  filter: drop-shadow(0 0 24px rgba(255, 159, 208, 0.45));
-}
-.sub { color: var(--muted); font-size: 16px; letter-spacing: 0.05em; }
-.bar { height: 2px; background: rgba(255,255,255,0.08); margin: 36px auto 26px; width: 70%; overflow: hidden; border-radius: 2px; }
-.bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--cyan), var(--pink)); box-shadow: 0 0 12px var(--cyan); transition: width 0.3s; }
-#enter { font-size: 14px; padding: 14px 40px; border-color: var(--cyan); }
-#enter:disabled { opacity: 0.5; cursor: wait; }
-#enter:not(:disabled) { animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100% { box-shadow: 0 0 0 rgba(0,240,255,0); } 50% { box-shadow: 0 0 28px rgba(0,240,255,0.6); } }
-.hint-small { margin-top: 18px; font-size: 12px; color: var(--muted); }
 
 /* ---------- HUD ---------- */
 #hud-top {
